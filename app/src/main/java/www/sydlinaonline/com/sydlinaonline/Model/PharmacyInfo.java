@@ -4,20 +4,38 @@ public class PharmacyInfo {
 
     private String PharmacyName;
     private String PharmacyPhone;
-    private String pharmacyAddress;
+    private String pharmacyLat;
+    private String pharmacyLan;
     private String pharmacyKey;
 
-    public PharmacyInfo() {
 
-    }
 
-    public PharmacyInfo(String pharmacyName, String pharmacyPhone, String pharmacyAddress, String pharmacyKey) {
+//    public PharmacyInfo() {
+//    }
+
+    public PharmacyInfo(String pharmacyName, String pharmacyPhone, String pharmacyLat, String pharmacyLan, String pharmacyKey) {
         PharmacyName = pharmacyName;
         PharmacyPhone = pharmacyPhone;
-        this.pharmacyAddress = pharmacyAddress;
+        this.pharmacyLat = pharmacyLat;
+        this.pharmacyLan = pharmacyLan;
         this.pharmacyKey = pharmacyKey;
     }
 
+    public String getPharmacyLat() {
+        return pharmacyLat;
+    }
+
+    public void setPharmacyLat(String pharmacyLat) {
+        this.pharmacyLat = pharmacyLat;
+    }
+
+    public String getPharmacyLan() {
+        return pharmacyLan;
+    }
+
+    public void setPharmacyLan(String pharmacyLan) {
+        this.pharmacyLan = pharmacyLan;
+    }
 
     public String getPharmacyKey() {
         return pharmacyKey;
@@ -44,11 +62,5 @@ public class PharmacyInfo {
         PharmacyPhone = pharmacyPhone;
     }
 
-    public String getPharmacyAddress() {
-        return pharmacyAddress;
-    }
 
-    public void setPharmacyAddress(String pharmacyAddress) {
-        this.pharmacyAddress = pharmacyAddress;
-    }
 }

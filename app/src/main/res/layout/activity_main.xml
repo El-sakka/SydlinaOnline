@@ -20,14 +20,15 @@
         android:text="@string/create_pharmacy"
         android:padding="8dp"
         android:layout_marginTop="24dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:gravity="center"
         android:textSize="24sp"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_rectangle"
         />
+
+
 
     <TextView
         android:id="@+id/tv_choose_pharmacy"
@@ -36,11 +37,13 @@
         android:padding="8dp"
         android:gravity="center"
         android:textSize="24sp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_rectangle"
         />
+
+
 
 
 </LinearLayout>

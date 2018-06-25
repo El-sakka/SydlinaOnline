@@ -1,72 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".View.MedicineFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
     <TextView
         android:text="@string/medicine_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="24sp"
+        android:textSize="16sp"
         />
-
-    <EditText
-        android:hint="@string/name"
-        android:id="@+id/et_medicine_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:text="Category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        >
-        <Spinner
-            android:id="@+id/spn_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/pharmacy_name"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            />
-        <Button
-            android:id="@+id/btn_add_category"
-            android:text="Add"
-            android:layout_weight="0.4"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_pharmacy_name"
+            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_category"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_rectangle"
+        >
     <EditText
-        android:hint="Quanitiy"
+        android:hint="@string/name"
+        android:id="@+id/et_medicine_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_rectangle">
+    <EditText
+        android:id="@+id/et_category_name"
+        android:hint="@string/category"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_rectangle"
+        >
+    <EditText
+        android:hint="@string/quanitiy"
         android:id="@+id/et_medicine_quantity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_rectangle"
+        >
     <EditText
-        android:hint="Price"
+        android:hint="@string/price"
         android:id="@+id/et_medicine_price"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_rectangle"
+        >
     <EditText
-        android:hint="description"
+        android:hint="@string/description"
         android:id="@+id/et_medicine_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:text="Upload Image"
-        android:id="@+id/btn_medicine_image_upload"
+        android:layout_height="wrap_content"
+        />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_rectangle"
+        >
+        <EditText
+            android:hint="ImageURl"
+            android:id="@+id/et_medicine_image_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_medicine_save"
+        android:src="@mipmap/ic_check"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-</LinearLayout>
+
+
+</RelativeLayout>

@@ -21,7 +21,10 @@
 
    <android.support.design.widget.TextInputLayout
        android:layout_width="match_parent"
-       android:layout_height="wrap_content">
+       android:layout_height="wrap_content"
+       android:padding="8dp"
+       android:background="@drawable/rounded_rectangle"
+       >
        <EditText
            android:id="@+id/ed_pharmacy_name"
            android:hint="@string/name"
@@ -35,10 +38,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
         />
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@drawable/rounded_rectangle"
+        >
         <EditText
             android:id="@+id/ed_pharmacy_phone"
             android:hint="@string/phone"
@@ -48,16 +57,47 @@
             />
     </android.support.design.widget.TextInputLayout>
 
+    <TextView
+        android:text="@string/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"/>
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangle"
+        >
         <EditText
-            android:id="@+id/ed_pharmacy_address"
-            android:hint="@string/address"
+            android:id="@+id/et_lat"
+            android:hint="@string/latitude"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
     </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangle"
+        >
+        <EditText
+            android:id="@+id/et_lan"
+            android:hint="@string/longtitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:layout_marginTop="8dp"
+        android:id="@+id/btn_setLocation"
+        android:layout_gravity="center"
+        android:text="set Location"
+        android:background="@drawable/button_rounded_rectangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
 

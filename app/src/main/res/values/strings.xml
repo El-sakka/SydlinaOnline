@@ -11,4 +11,12 @@
     <string name="phone">Phone</string>
     <string name="address">Address</string>
     <string name="medicine_info">Medicine Info</string>
+    <string name="description">description</string>
+    <string name="price">Price</string>
+    <string name="quanitiy">Quanitiy</string>
+    <string name="category">Category</string>
+    <string name="location">Location</string>
+    <string name="latitude">Latitude</string>
+    <string name="longtitude">Longtitude</string>
+    <string name="pharmacy_name">Pharmacy Name</string>
 </resources>
