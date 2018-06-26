@@ -94,6 +94,7 @@
         android:layout_marginTop="8dp"
         android:id="@+id/btn_setLocation"
         android:layout_gravity="center"
+        android:padding="16dp"
         android:text="set Location"
         android:background="@drawable/button_rounded_rectangle"
         android:layout_width="wrap_content"
@@ -102,7 +103,6 @@
 </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-
         android:id="@+id/fab_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -111,6 +111,14 @@
         android:src="@mipmap/ic_arrow_next"
         android:layout_margin="24dp"
         />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_done_phrmacy"
+        android:src="@mipmap/ic_check"
+        android:layout_margin="24dp"
+       android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
 

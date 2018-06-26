@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import www.sydlinaonline.com.sydlinaonline.MainActivity;
 import www.sydlinaonline.com.sydlinaonline.Map.SetLocationActivity;
 import www.sydlinaonline.com.sydlinaonline.Model.PharmacyInfo;
 import www.sydlinaonline.com.sydlinaonline.R;
@@ -32,6 +33,11 @@ public class CreatePhamacyFragment extends Fragment {
     private static final String PHARMACY_NAME = "pharmacy_name";
     private static final String LATITUDE_KEY ="latitude";
     private static final String LANGITUDE_KEY ="longitude";
+    private static final String PHRMACY_MODEL = "pharmcy_model";
+    private static final String SET_CLASS = "set_class";
+    private static final String LOCATION_CLASS = "location_class";
+
+
 
 
     private EditText mPharmacyNameEditText;
@@ -42,6 +48,7 @@ public class CreatePhamacyFragment extends Fragment {
 
 
     private FloatingActionButton fabNext;
+    private FloatingActionButton fabDone;
     //private DatabaseReference mDatabaseReference;
 
 
@@ -70,17 +77,39 @@ public class CreatePhamacyFragment extends Fragment {
         mSetLocationBtn = (Button)getActivity().findViewById(R.id.btn_setLocation);
 
         fabNext = (FloatingActionButton)getActivity().findViewById(R.id.fab_next);
+        fabDone = (FloatingActionButton)getActivity().findViewById(R.id.fab_done_phrmacy);
 
 
+        /*
+        * check if intent comes from set location Activity
+        * */
         // get lat,lan from location Activity
         Intent intent = getActivity().getIntent();
-        double lat = intent.getDoubleExtra(LATITUDE_KEY,0.0);
-        double lng = intent.getDoubleExtra(LANGITUDE_KEY,0.0);
+        String classLocation = intent.getStringExtra(LOCATION_CLASS);
+        if(classLocation=="location"){
+            double lat = intent.getDoubleExtra(LATITUDE_KEY,0.0);
+            double lng = intent.getDoubleExtra(LANGITUDE_KEY,0.0);
 
-        Log.d(TAG, "onActivityCreated: lat:"+lat +" lng: "+lng);
-        // set values to editTexts
-        mPharmacylatEditText.setText(String.valueOf(lat));
-        mPharmacylanEditText.setText(String.valueOf(lng));
+            Log.d(TAG, "onActivityCreated: lat:"+lat +" lng: "+lng);
+            // set values to editTexts
+            mPharmacylatEditText.setText(String.valueOf(lat));
+            mPharmacylanEditText.setText(String.valueOf(lng));
+        }
+
+
+        /*
+        * check if intent comes form Choose Activity
+        * */
+
+        Intent intentChoose = getActivity().getIntent();
+        String classChoose = intentChoose.getStringExtra(SET_CLASS);
+        if(classChoose=="choose"){
+            PharmacyInfo info = intentChoose.getParcelableExtra(PHRMACY_MODEL);
+            mPharmacyNameEditText.setText(info.getPharmacyName());
+            mPharmacyPhoneEditText.setText(info.getPharmacyPhone());
+            mPharmacylatEditText.setText(info.getPharmacyLat());
+            mPharmacylanEditText.setText(info.getPharmacyLan());
+        }
 
         final DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Database").child("Pharmacy");
 
@@ -111,6 +140,31 @@ public class CreatePhamacyFragment extends Fragment {
                     intent.putExtra(PHARMACY_NAME,pharmacyName);
                     intent.putExtra(PHARMACY_KEY,pharmacyKey);
 
+                    startActivity(intent);
+
+                }else{
+                    Log.d(TAG, "onClick: edit text field is emtpy");
+                    Toast.makeText(getActivity(),"Pharamcy name is Empty",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        fabDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(mPharmacyNameEditText.getText().toString())) {
+                    Log.d(TAG, "onClick: pushing pharmacy data into firebase");
+                    String pharmacyName = mPharmacyNameEditText.getText().toString();
+                    String pharmacyPhone = mPharmacyPhoneEditText.getText().toString();
+                    String pharmacylat = mPharmacylatEditText.getText().toString();
+                    String pharmacylan = mPharmacylanEditText.getText().toString();
+
+                    String pharmacyKey = mDatabaseReference.push().getKey();
+
+                    PharmacyInfo pharmacy = new PharmacyInfo(pharmacyName,pharmacyPhone,pharmacylat,pharmacylan,pharmacyKey);
+                    mDatabaseReference.child(pharmacyName).setValue(pharmacy);
+
+                    Intent intent = new Intent(getActivity(),MainActivity.class);
                     startActivity(intent);
 
                 }else{

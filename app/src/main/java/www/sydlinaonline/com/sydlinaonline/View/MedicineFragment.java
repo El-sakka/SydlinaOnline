@@ -7,6 +7,7 @@ import android.media.MediaExtractor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -68,7 +69,7 @@ public class MedicineFragment extends Fragment {
     private EditText mMedicineDiscription;
     private EditText mPharmacyName;
     private EditText mMedicineImage;
-    private Button mMedicineDone;
+    private FloatingActionButton mMedicineDone;
 
 
     // database references for firebase
@@ -110,7 +111,7 @@ public class MedicineFragment extends Fragment {
         mMedicineDiscription = (EditText) getActivity().findViewById(R.id.et_medicine_description);
         mPharmacyName = (EditText) getActivity().findViewById(R.id.et_pharmacy_name);
         mMedicineImage = (EditText) getActivity().findViewById(R.id.et_medicine_image_url);
-        mMedicineDone = (Button) getActivity().findViewById(R.id.btn_medicine_save);
+        mMedicineDone = (FloatingActionButton) getActivity().findViewById(R.id.btn_medicine_save);
 
         // identify intent to get data from it's prev intent
         Intent intent = getActivity().getIntent();
@@ -167,7 +168,7 @@ public class MedicineFragment extends Fragment {
                     // set value in medince and phramacy node
                     mDatabaseReferenceMedicinePharmacy.push().setValue(pharmacyAndMedicine);
                     // set value in pharmacy node
-                    mDatabaseReferencePharmacy.child("ListMedicine").push().setValue(map);
+                    //mDatabaseReferencePharmacy.child("ListMedicine").push().setValue(map);
                     // set value in category node
                     mDatabaseReferenceCategory.child(medicineCategory).push().setValue(medicineKey);
 
