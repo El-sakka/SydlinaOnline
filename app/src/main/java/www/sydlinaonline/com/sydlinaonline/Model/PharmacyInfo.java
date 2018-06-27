@@ -3,7 +3,10 @@ package www.sydlinaonline.com.sydlinaonline.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PharmacyInfo implements Parcelable {
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
+public class PharmacyInfo {
 
     private String pharmacyName;
     private String pharmacyPhone;
@@ -32,31 +35,6 @@ public class PharmacyInfo implements Parcelable {
         pharmacyKey = in.readString();
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(pharmacyName);
-        dest.writeString(pharmacyPhone);
-        dest.writeString(pharmacyLat);
-        dest.writeString(pharmacyLan);
-        dest.writeString(pharmacyKey);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<PharmacyInfo> CREATOR = new Creator<PharmacyInfo>() {
-        @Override
-        public PharmacyInfo createFromParcel(Parcel in) {
-            return new PharmacyInfo(in);
-        }
-
-        @Override
-        public PharmacyInfo[] newArray(int size) {
-            return new PharmacyInfo[size];
-        }
-    };
 
     public String getPharmacyLat() {
         return pharmacyLat;
@@ -97,4 +75,5 @@ public class PharmacyInfo implements Parcelable {
     public void setPharmacyPhone(String pharmacyPhone) {
         this.pharmacyPhone = pharmacyPhone;
     }
+
 }

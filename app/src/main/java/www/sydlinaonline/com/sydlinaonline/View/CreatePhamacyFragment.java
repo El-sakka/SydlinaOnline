@@ -31,14 +31,8 @@ public class CreatePhamacyFragment extends Fragment {
     private static final String TAG = "CreatePhamacyFragment";
     private static final String PHARMACY_KEY = "pharmacy_key";
     private static final String PHARMACY_NAME = "pharmacy_name";
-    private static final String LATITUDE_KEY ="latitude";
-    private static final String LANGITUDE_KEY ="longitude";
-    private static final String PHRMACY_MODEL = "pharmcy_model";
-    private static final String SET_CLASS = "set_class";
-    private static final String LOCATION_CLASS = "location_class";
-
-
-
+    private static final String LATITUDE_KEY = "latitude";
+    private static final String LANGITUDE_KEY = "longitude";
 
     private EditText mPharmacyNameEditText;
     private EditText mPharmacyPhoneEditText;
@@ -50,7 +44,6 @@ public class CreatePhamacyFragment extends Fragment {
     private FloatingActionButton fabNext;
     private FloatingActionButton fabDone;
     //private DatabaseReference mDatabaseReference;
-
 
 
     public CreatePhamacyFragment() {
@@ -71,45 +64,31 @@ public class CreatePhamacyFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         mPharmacyNameEditText = (EditText) getActivity().findViewById(R.id.ed_pharmacy_name);
-        mPharmacyPhoneEditText = (EditText)getActivity().findViewById(R.id.ed_pharmacy_phone);
-        mPharmacylatEditText = (EditText)getActivity().findViewById(R.id.et_lat);
-        mPharmacylanEditText = (EditText)getActivity().findViewById(R.id.et_lan);
-        mSetLocationBtn = (Button)getActivity().findViewById(R.id.btn_setLocation);
+        mPharmacyPhoneEditText = (EditText) getActivity().findViewById(R.id.ed_pharmacy_phone);
+        mPharmacylatEditText = (EditText) getActivity().findViewById(R.id.et_lat);
+        mPharmacylanEditText = (EditText) getActivity().findViewById(R.id.et_lan);
+        mSetLocationBtn = (Button) getActivity().findViewById(R.id.btn_setLocation);
 
-        fabNext = (FloatingActionButton)getActivity().findViewById(R.id.fab_next);
-        fabDone = (FloatingActionButton)getActivity().findViewById(R.id.fab_done_phrmacy);
+        fabNext = (FloatingActionButton) getActivity().findViewById(R.id.fab_next);
+        fabDone = (FloatingActionButton) getActivity().findViewById(R.id.fab_done_phrmacy);
 
 
         /*
-        * check if intent comes from set location Activity
-        * */
+         * check if intent comes from set location Activity
+         * */
         // get lat,lan from location Activity
         Intent intent = getActivity().getIntent();
-        String classLocation = intent.getStringExtra(LOCATION_CLASS);
-        if(classLocation=="location"){
-            double lat = intent.getDoubleExtra(LATITUDE_KEY,0.0);
-            double lng = intent.getDoubleExtra(LANGITUDE_KEY,0.0);
 
-            Log.d(TAG, "onActivityCreated: lat:"+lat +" lng: "+lng);
-            // set values to editTexts
-            mPharmacylatEditText.setText(String.valueOf(lat));
-            mPharmacylanEditText.setText(String.valueOf(lng));
-        }
+        double lat = intent.getDoubleExtra(LATITUDE_KEY, 0.0);
+        double lng = intent.getDoubleExtra(LANGITUDE_KEY, 0.0);
+
+        Log.d(TAG, "onActivityCreated: lat:" + lat + " lng: " + lng);
+        // set values to editTexts
+        mPharmacylatEditText.setText(String.valueOf(lat));
+        mPharmacylanEditText.setText(String.valueOf(lng));
 
 
-        /*
-        * check if intent comes form Choose Activity
-        * */
 
-        Intent intentChoose = getActivity().getIntent();
-        String classChoose = intentChoose.getStringExtra(SET_CLASS);
-        if(classChoose=="choose"){
-            PharmacyInfo info = intentChoose.getParcelableExtra(PHRMACY_MODEL);
-            mPharmacyNameEditText.setText(info.getPharmacyName());
-            mPharmacyPhoneEditText.setText(info.getPharmacyPhone());
-            mPharmacylatEditText.setText(info.getPharmacyLat());
-            mPharmacylanEditText.setText(info.getPharmacyLan());
-        }
 
         final DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Database").child("Pharmacy");
 
@@ -123,7 +102,7 @@ public class CreatePhamacyFragment extends Fragment {
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(mPharmacyNameEditText.getText().toString())) {
+                if (!TextUtils.isEmpty(mPharmacyNameEditText.getText().toString())) {
                     Log.d(TAG, "onClick: pushing pharmacy data into firebase");
                     String pharmacyName = mPharmacyNameEditText.getText().toString();
                     String pharmacyPhone = mPharmacyPhoneEditText.getText().toString();
@@ -132,19 +111,19 @@ public class CreatePhamacyFragment extends Fragment {
 
                     String pharmacyKey = mDatabaseReference.push().getKey();
 
-                    PharmacyInfo pharmacy = new PharmacyInfo(pharmacyName,pharmacyPhone,pharmacylat,pharmacylan,pharmacyKey);
+                    PharmacyInfo pharmacy = new PharmacyInfo(pharmacyName, pharmacyPhone, pharmacylat, pharmacylan, pharmacyKey);
                     mDatabaseReference.child(pharmacyName).setValue(pharmacy);
 
-                    Intent intent = new Intent(getActivity(),MedicineActivity.class);
+                    Intent intent = new Intent(getActivity(), MedicineActivity.class);
 
-                    intent.putExtra(PHARMACY_NAME,pharmacyName);
-                    intent.putExtra(PHARMACY_KEY,pharmacyKey);
+                    intent.putExtra(PHARMACY_NAME, pharmacyName);
+                    intent.putExtra(PHARMACY_KEY, pharmacyKey);
 
                     startActivity(intent);
 
-                }else{
+                } else {
                     Log.d(TAG, "onClick: edit text field is emtpy");
-                    Toast.makeText(getActivity(),"Pharamcy name is Empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Pharamcy name is Empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -152,7 +131,7 @@ public class CreatePhamacyFragment extends Fragment {
         fabDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(mPharmacyNameEditText.getText().toString())) {
+                if (!TextUtils.isEmpty(mPharmacyNameEditText.getText().toString())) {
                     Log.d(TAG, "onClick: pushing pharmacy data into firebase");
                     String pharmacyName = mPharmacyNameEditText.getText().toString();
                     String pharmacyPhone = mPharmacyPhoneEditText.getText().toString();
@@ -161,26 +140,25 @@ public class CreatePhamacyFragment extends Fragment {
 
                     String pharmacyKey = mDatabaseReference.push().getKey();
 
-                    PharmacyInfo pharmacy = new PharmacyInfo(pharmacyName,pharmacyPhone,pharmacylat,pharmacylan,pharmacyKey);
+                    PharmacyInfo pharmacy = new PharmacyInfo(pharmacyName, pharmacyPhone, pharmacylat, pharmacylan, pharmacyKey);
                     mDatabaseReference.child(pharmacyName).setValue(pharmacy);
 
-                    Intent intent = new Intent(getActivity(),MainActivity.class);
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
 
-                }else{
+                } else {
                     Log.d(TAG, "onClick: edit text field is emtpy");
-                    Toast.makeText(getActivity(),"Pharamcy name is Empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Pharamcy name is Empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
 
-
     }
 
 
-    private void directToLocation(){
-        Intent intent = new Intent(getActivity(),SetLocationActivity.class);
+    private void directToLocation() {
+        Intent intent = new Intent(getActivity(), SetLocationActivity.class);
         startActivity(intent);
     }
 

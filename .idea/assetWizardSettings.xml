@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="ffffff" />
+                                                <entry key="color" value="96909a" />
                                                 <entry key="paddingPercent" value="-10" />
                                               </map>
                                             </option>
@@ -35,7 +35,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/home/sakkawy/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_check_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/home/sakkawy/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_build_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -47,7 +47,7 @@
                                     <map>
                                       <entry key="backgroundColor" value="1d1d1d" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="outputName" value="ic_check" />
+                                      <entry key="outputName" value="ic_edit" />
                                     </map>
                                   </option>
                                 </PersistentState>

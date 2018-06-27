@@ -58,6 +58,8 @@ public class MedicineFragment extends Fragment {
     private static final String MEDICINE_QUANTITY = "medicine_quantity";
 
 
+
+
     // hash map for medicine key , and medinine quantity
     HashMap<String, String> map = new HashMap<>();
 
@@ -113,6 +115,7 @@ public class MedicineFragment extends Fragment {
         mMedicineImage = (EditText) getActivity().findViewById(R.id.et_medicine_image_url);
         mMedicineDone = (FloatingActionButton) getActivity().findViewById(R.id.btn_medicine_save);
 
+
         // identify intent to get data from it's prev intent
         Intent intent = getActivity().getIntent();
         final String pharmacyName = intent.getStringExtra(PHARMACY_NAME);
@@ -154,9 +157,9 @@ public class MedicineFragment extends Fragment {
                     String medicineKey = mDatabaseReferenceMedicine.push().getKey();
 
                     // put medicine key and medicne quantity in map varaiable to send them back to list medicine node
-                    map.put(MEDICINE_KEY, medicineKey);
+                  /*  map.put(MEDICINE_KEY, medicineKey);
                     map.put(MEDICINE_QUANTITY, medicineQuantity);
-
+*/
                     // object from medicine model
                     Medicine medicineObj = new Medicine(medicineName, medicinePrice, medicineDescription,
                             "null", medicineKey);
