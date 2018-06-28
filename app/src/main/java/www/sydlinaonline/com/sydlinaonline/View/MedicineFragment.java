@@ -152,6 +152,7 @@ public class MedicineFragment extends Fragment {
                     String medicineCategory = mMedicineCategory.getText().toString();
                     String medicineQuantity = mMedicineQuantity.getText().toString();
                     String medicineDescription = mMedicineDiscription.getText().toString();
+                    String medicineImageUrl = mMedicineImage.getText().toString();
 
                     // get medicine key when adding new medicine
                     String medicineKey = mDatabaseReferenceMedicine.push().getKey();
@@ -162,9 +163,9 @@ public class MedicineFragment extends Fragment {
 */
                     // object from medicine model
                     Medicine medicineObj = new Medicine(medicineName, medicinePrice, medicineDescription,
-                            "null", medicineKey);
+                            medicineImageUrl, medicineKey);
                     // object from medicince and pharmacy model
-                    PharmacyAndMedicine pharmacyAndMedicine = new PharmacyAndMedicine(pharmacyKey, medicineKey,medicineQuantity);
+                    PharmacyAndMedicine pharmacyAndMedicine = new PharmacyAndMedicine(pharmacyKey, medicineName,medicineQuantity);
 
                     //set value in medinince node
                     mDatabaseReferenceMedicine.child(medicineName).setValue(medicineObj);
@@ -173,7 +174,7 @@ public class MedicineFragment extends Fragment {
                     // set value in pharmacy node
                     //mDatabaseReferencePharmacy.child("ListMedicine").push().setValue(map);
                     // set value in category node
-                    mDatabaseReferenceCategory.child(medicineCategory).push().setValue(medicineKey);
+                    mDatabaseReferenceCategory.child(medicineCategory).push().setValue(medicineName);
 
                 } else {
                     Toast.makeText(getActivity(), "Medicine Name is Empty", Toast.LENGTH_SHORT).show();
