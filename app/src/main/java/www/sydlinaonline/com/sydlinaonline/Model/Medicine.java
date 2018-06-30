@@ -2,7 +2,7 @@ package www.sydlinaonline.com.sydlinaonline.Model;
 
 public class Medicine {
 
-    String name ;
+    String name;
     String quantity;
     String category;
     String price;
@@ -10,23 +10,27 @@ public class Medicine {
     String imageUrl;
     String pharmacyKey;
     String medicineKey;
+    Integer mostSales;
 
+    public Medicine(){
 
-    public Medicine(String name, String quantity, String category, String price, String description, String imageUrl) {
-        this.name = name;
-        this.quantity = quantity;
-        this.category = category;
-        this.price = price;
-        this.description = description;
-        this.imageUrl = imageUrl;
     }
 
-    public Medicine(String name, String price, String description, String imageUrl,String medicineKey) {
+    public Medicine(String name, String price, String description, String imageUrl, String medicineKey,Integer mostSales) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
         this.medicineKey = medicineKey;
+        this.mostSales = mostSales;
+    }
+
+    public Integer getMostSales() {
+        return mostSales;
+    }
+
+    public void setMostSales(int mostSales) {
+        this.mostSales = mostSales;
     }
 
     public String getMedicineKey() {

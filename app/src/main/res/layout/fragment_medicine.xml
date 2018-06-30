@@ -39,7 +39,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@drawable/rounded_rectangle"
         >
     <EditText
         android:hint="@string/name"
@@ -54,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@drawable/rounded_rectangle">
+        >
     <EditText
         android:id="@+id/et_category_name"
         android:hint="@string/category"
@@ -68,7 +67,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@drawable/rounded_rectangle"
         >
     <EditText
         android:hint="@string/quanitiy"
@@ -84,7 +82,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@drawable/rounded_rectangle"
         >
     <EditText
         android:hint="@string/price"
@@ -101,7 +98,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@drawable/rounded_rectangle"
         >
     <EditText
         android:hint="@string/description"
@@ -115,7 +111,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@drawable/rounded_rectangle"
         >
         <EditText
             android:hint="ImageURl"

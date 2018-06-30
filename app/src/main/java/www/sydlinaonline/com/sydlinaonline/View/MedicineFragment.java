@@ -56,6 +56,8 @@ public class MedicineFragment extends Fragment {
     private static final String PHARMACY_KEY = "pharmacy_key";
     private static final String MEDICINE_KEY = "medicine_key";
     private static final String MEDICINE_QUANTITY = "medicine_quantity";
+    private static final String CHOOSE_KEY = "choose";
+
 
 
 
@@ -82,6 +84,7 @@ public class MedicineFragment extends Fragment {
 
 
     String pharmacySearch;
+    String pharmacyName;
 
     public MedicineFragment() {
         // Required empty public constructor
@@ -118,17 +121,25 @@ public class MedicineFragment extends Fragment {
 
         // identify intent to get data from it's prev intent
         Intent intent = getActivity().getIntent();
-        final String pharmacyName = intent.getStringExtra(PHARMACY_NAME);
-        final String pharmacyKey = intent.getStringExtra(PHARMACY_KEY);
+        String classType = intent.getStringExtra("Class");
+        if(classType.equals("A")){
+            pharmacyName = intent.getStringExtra(PHARMACY_NAME);
+        }else if(classType.equals("B")){
+            pharmacyName = intent.getStringExtra(CHOOSE_KEY);
+        }
+       // final String pharmacyKey = intent.getStringExtra(PHARMACY_KEY);
+
+
+
         mPharmacyName.setText(pharmacyName);
         pharmacySearch = pharmacyName;
         
         // tag for debugging
         Log.d(TAG, "onActivityCreated: pharmacy Name: " + pharmacyName);
-
+/*
         // define ref to pharmacy node in firebase
         mDatabaseReferencePharmacy = FirebaseDatabase.getInstance().getReference()
-                .child("Database").child("Pharmacy").child(pharmacySearch);
+                .child("Database").child("Pharmacy").child(pharmacySearch);*/
         // define ref for medicine node in firebase
         mDatabaseReferenceMedicine = FirebaseDatabase.getInstance().getReference()
                 .child("Database").child("Medicine");
@@ -157,13 +168,9 @@ public class MedicineFragment extends Fragment {
                     // get medicine key when adding new medicine
                     String medicineKey = mDatabaseReferenceMedicine.push().getKey();
 
-                    // put medicine key and medicne quantity in map varaiable to send them back to list medicine node
-                  /*  map.put(MEDICINE_KEY, medicineKey);
-                    map.put(MEDICINE_QUANTITY, medicineQuantity);
-*/
                     // object from medicine model
                     Medicine medicineObj = new Medicine(medicineName, medicinePrice, medicineDescription,
-                            medicineImageUrl, medicineKey);
+                            medicineImageUrl, medicineKey,0);
                     // object from medicince and pharmacy model
                     PharmacyAndMedicine pharmacyAndMedicine = new PharmacyAndMedicine(pharmacyName, medicineName,medicineQuantity);
 
@@ -176,14 +183,25 @@ public class MedicineFragment extends Fragment {
                     // set value in category node
                     mDatabaseReferenceCategory.child(medicineCategory).push().setValue(medicineName);
 
+
+                    Toast.makeText(getActivity(),"Done",Toast.LENGTH_SHORT).show();
+                    clearData();
+
                 } else {
                     Toast.makeText(getActivity(), "Medicine Name is Empty", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
+    }
 
-
+    private void clearData(){
+        mMedicineName.setText("");
+        mMedicineDiscription.setText("");
+        mMedicineQuantity.setText("");
+        mMedicinePrice.setText("");
+        mMedicineImage.setText("");
+       // mMedicineCategory.setText("");
     }
 
 

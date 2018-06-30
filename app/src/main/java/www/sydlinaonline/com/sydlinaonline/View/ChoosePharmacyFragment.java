@@ -35,6 +35,7 @@ public class ChoosePharmacyFragment extends Fragment {
     private static final String PHRMACY_MODEL = "pharmcy_model";
     private static final String SET_CLASS = "set_class";
     private static final String PHRMACY_KEY = "phrmacy" ;
+    private static final String CHOOSE_KEY = "choose";
 
     RecyclerView mRecyclerView;
     DatabaseReference mRef;
@@ -89,7 +90,7 @@ public class ChoosePharmacyFragment extends Fragment {
                 viewHolder.mEditImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        redirectToMedicine(viewHolder.phrmacyNameTextView.getText().toString());
                     }
                 });
 
@@ -185,8 +186,11 @@ public class ChoosePharmacyFragment extends Fragment {
 
     }
 
-    private void updatePhrmacy(String phrmacykey){
-
+    private void redirectToMedicine(String phrmacyName){
+        Intent intent = new Intent(getActivity(),MedicineActivity.class);
+        intent.putExtra("Class","B");
+        intent.putExtra(CHOOSE_KEY,phrmacyName);
+        startActivity(intent);
     }
 
 

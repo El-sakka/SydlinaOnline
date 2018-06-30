@@ -118,10 +118,8 @@ public class CreatePhamacyFragment extends Fragment {
                     mDatabaseReference.child(pharmacyName).setValue(pharmacy);
 
                     Intent intent = new Intent(getActivity(), MedicineActivity.class);
-
+                    intent.putExtra("Class","A");
                     intent.putExtra(PHARMACY_NAME, pharmacyName);
-                    intent.putExtra(PHARMACY_KEY, pharmacyKey);
-
                     startActivity(intent);
 
                 } else {

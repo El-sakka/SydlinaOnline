@@ -20,6 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import www.sydlinaonline.com.sydlinaonline.Model.Medicine;
+import www.sydlinaonline.com.sydlinaonline.Model.PharmacyAndMedicine;
 import www.sydlinaonline.com.sydlinaonline.Model.PharmacyInfo;
 import www.sydlinaonline.com.sydlinaonline.Model.Reservation;
 import www.sydlinaonline.com.sydlinaonline.R;
@@ -28,6 +30,7 @@ public class ShowReservationActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private String phramcyName;
+    private String medicineName;
 
 
 
@@ -66,10 +69,12 @@ public class ShowReservationActivity extends AppCompatActivity {
                 viewHolder.dateTextView.setText(model.getDate());
                 viewHolder.medicineTextView.setText(model.getMedName());
 
+                medicineName = viewHolder.medicineTextView.getText().toString();
+
                 viewHolder.done.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        deleteReservation(viewHolder.codeTextView.getText().toString());
+                        doneReservation(viewHolder.codeTextView.getText().toString());
                     }
                 });
 
@@ -118,7 +123,7 @@ public class ShowReservationActivity extends AppCompatActivity {
         }
     }
 
-    private void deleteReservation(String code){
+    private void doneReservation(String code){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Database").child("Reservation");
 
@@ -128,6 +133,80 @@ public class ShowReservationActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     snapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void deleteReservation(String code){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Database").child("Reservation");
+        final String[] curQuantity = new String[1];
+
+        Query query = reference.orderByChild("code").equalTo(code);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Reservation res = snapshot.getValue(Reservation.class);
+                    curQuantity[0] = res.getQuantity();
+                    snapshot.getRef().removeValue();
+                }
+                increaseQuantity(phramcyName,medicineName,curQuantity[0]);
+                decreaseMostSales(medicineName,curQuantity[0]);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void increaseQuantity(final String phrmacy, String medName, final String quantity){
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference()
+                .child("Database").child("PharamcyAndMedicine");
+
+        Query query = mRef.orderByChild("medicineKey").startAt(medName).endAt(medName+"\uf8ff");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    PharmacyAndMedicine pharmacyAndMedicine = snapshot.getValue(PharmacyAndMedicine.class);
+                    if(pharmacyAndMedicine.getPharmacyKey().equals(phrmacy)){
+                        String oldVal = pharmacyAndMedicine.getMedicineQuantity();
+                        int resvedQuantity = Integer.valueOf(quantity);
+                        int oldQuantity = Integer.valueOf(oldVal);
+                        int newQuantity = resvedQuantity+oldQuantity;
+                        snapshot.getRef().child("medicineQuantity").setValue(String.valueOf(newQuantity));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void decreaseMostSales(String medicineName,String quantity){
+        final int val = Integer.valueOf(quantity);
+
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference()
+                .child("Database").child("Medicine");
+        Query query = mRef.orderByChild("name").startAt(medicineName).endAt(medicineName+"\uf8ff");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Medicine model = snapshot.getValue(Medicine.class);
+                    int oldVal = model.getMostSales();
+                    snapshot.getRef().child("mostSales").setValue(oldVal-val);
                 }
             }
 
