@@ -36,7 +36,8 @@
         <activity android:name=".View.ChoosePharmacy" />
         <activity android:name=".View.CreatePharmacy" />
         <activity android:name=".View.MedicineActivity" />
-        <activity android:name=".Map.SetLocationActivity"></activity>
+        <activity android:name=".Map.SetLocationActivity" />
+        <activity android:name=".View.ShowReservationActivity"></activity>
     </application>
 
 </manifest>

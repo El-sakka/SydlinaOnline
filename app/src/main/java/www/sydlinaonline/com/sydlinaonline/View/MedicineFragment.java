@@ -165,7 +165,7 @@ public class MedicineFragment extends Fragment {
                     Medicine medicineObj = new Medicine(medicineName, medicinePrice, medicineDescription,
                             medicineImageUrl, medicineKey);
                     // object from medicince and pharmacy model
-                    PharmacyAndMedicine pharmacyAndMedicine = new PharmacyAndMedicine(pharmacyKey, medicineName,medicineQuantity);
+                    PharmacyAndMedicine pharmacyAndMedicine = new PharmacyAndMedicine(pharmacyName, medicineName,medicineQuantity);
 
                     //set value in medinince node
                     mDatabaseReferenceMedicine.child(medicineName).setValue(medicineObj);

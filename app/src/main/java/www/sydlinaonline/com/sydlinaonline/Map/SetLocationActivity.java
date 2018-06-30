@@ -49,12 +49,16 @@ public class SetLocationActivity extends AppCompatActivity {
     private Boolean mLocationPermissionGranted = false;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private LatLng mLatLng;
+    private String phramacyName;
+
 
     GoogleMap mGoogleMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
     private static final String LATITUDE_KEY ="latitude";
     private static final String LANGITUDE_KEY ="longitude";
+    private static final String NAME_KEY = "name";
+
 
 
     //fab
@@ -64,6 +68,8 @@ public class SetLocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_location);
+
+        phramacyName = getIntent().getStringExtra(NAME_KEY);
 
         checkButton = (FloatingActionButton)findViewById(R.id.fab_done_location);
 
@@ -84,6 +90,7 @@ public class SetLocationActivity extends AppCompatActivity {
                 intent.putExtra(LOCATION_CLASS,"location");
                 intent.putExtra(LATITUDE_KEY,lat);
                 intent.putExtra(LANGITUDE_KEY,lan);
+                intent.putExtra(NAME_KEY,phramacyName);
                 startActivity(intent);
             }
         });
@@ -118,7 +125,7 @@ public class SetLocationActivity extends AppCompatActivity {
                 mGoogleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
                     public void onMapLongClick(LatLng latLng) {
-                        mGoogleMap.addMarker(new MarkerOptions().position(latLng).title("Phramcy")
+                        mGoogleMap.addMarker(new MarkerOptions().position(latLng).title(phramacyName)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                         Log.d(TAG, "onMapLongClick: lat: " + latLng.latitude + " lng: " + latLng.longitude);
                         mLatLng = latLng;

@@ -34,6 +34,7 @@ public class ChoosePharmacyFragment extends Fragment {
     private static final String TAG = "ChoosePharmacyFragment";
     private static final String PHRMACY_MODEL = "pharmcy_model";
     private static final String SET_CLASS = "set_class";
+    private static final String PHRMACY_KEY = "phrmacy" ;
 
     RecyclerView mRecyclerView;
     DatabaseReference mRef;
@@ -71,7 +72,7 @@ public class ChoosePharmacyFragment extends Fragment {
                 mRef
         ) {
             @Override
-            protected void populateViewHolder(myViewHolder viewHolder, final PharmacyInfo model, final int position) {
+            protected void populateViewHolder(final myViewHolder viewHolder, final PharmacyInfo model, final int position) {
                 viewHolder.phrmacyNameTextView.setText(model.getPharmacyName());
                 viewHolder.phrmacyPhoneTextView.setText(model.getPharmacyPhone());
 
@@ -89,6 +90,16 @@ public class ChoosePharmacyFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 
+                    }
+                });
+
+                viewHolder.phrmacyShowReservation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(getActivity(),ShowReservationActivity.class);
+                        intent.putExtra(PHRMACY_KEY,viewHolder.phrmacyNameTextView.getText().toString());
+                        startActivity(intent);
                     }
                 });
 
@@ -112,15 +123,17 @@ public class ChoosePharmacyFragment extends Fragment {
 
         public TextView phrmacyNameTextView;
         public TextView phrmacyPhoneTextView;
-        public ImageView mRemoveImageView;
-        public ImageView mEditImageView;
+        public TextView phrmacyShowReservation;
+        public TextView mRemoveImageView;
+        public TextView mEditImageView;
         public myViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
             phrmacyNameTextView = (TextView)itemView.findViewById(R.id.tv_retrice_pharmacy_name);
             phrmacyPhoneTextView = (TextView)itemView.findViewById(R.id.tv_retrice_pharmacy_phone);
-            mRemoveImageView = (ImageView)itemView.findViewById(R.id.imv_remove);
-            mEditImageView = (ImageView)itemView.findViewById(R.id.imv_edit);
+            phrmacyShowReservation = (TextView)itemView.findViewById(R.id.show_reservation);
+            mRemoveImageView = (TextView)itemView.findViewById(R.id.imv_remove);
+            mEditImageView = (TextView)itemView.findViewById(R.id.imv_edit);
 
         }
 

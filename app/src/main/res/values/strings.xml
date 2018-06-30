@@ -19,4 +19,10 @@
     <string name="latitude">Latitude</string>
     <string name="longtitude">Longtitude</string>
     <string name="pharmacy_name">Pharmacy Name</string>
+    <string name="email">Email</string>
+    <string name="code">Code</string>
+    <string name="quantity">Quantity</string>
+    <string name="date">Date</string>
+    <string name="edit">Edit</string>
+    <string name="done">Done</string>
 </resources>

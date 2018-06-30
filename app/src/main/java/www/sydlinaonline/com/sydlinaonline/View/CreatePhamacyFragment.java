@@ -33,6 +33,7 @@ public class CreatePhamacyFragment extends Fragment {
     private static final String PHARMACY_NAME = "pharmacy_name";
     private static final String LATITUDE_KEY = "latitude";
     private static final String LANGITUDE_KEY = "longitude";
+    private static final String NAME_KEY = "name";
 
     private EditText mPharmacyNameEditText;
     private EditText mPharmacyPhoneEditText;
@@ -81,11 +82,13 @@ public class CreatePhamacyFragment extends Fragment {
 
         double lat = intent.getDoubleExtra(LATITUDE_KEY, 0.0);
         double lng = intent.getDoubleExtra(LANGITUDE_KEY, 0.0);
-
+        String name = intent.getStringExtra(NAME_KEY);
         Log.d(TAG, "onActivityCreated: lat:" + lat + " lng: " + lng);
         // set values to editTexts
         mPharmacylatEditText.setText(String.valueOf(lat));
         mPharmacylanEditText.setText(String.valueOf(lng));
+        mPharmacyNameEditText.setText(name);
+
 
 
 
@@ -95,7 +98,7 @@ public class CreatePhamacyFragment extends Fragment {
         mSetLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                directToLocation();
+                directToLocation(mPharmacyNameEditText.getText().toString());
             }
         });
 
@@ -157,8 +160,9 @@ public class CreatePhamacyFragment extends Fragment {
     }
 
 
-    private void directToLocation() {
+    private void directToLocation(String phrmacyName) {
         Intent intent = new Intent(getActivity(), SetLocationActivity.class);
+        intent.putExtra(NAME_KEY,phrmacyName);
         startActivity(intent);
     }
 

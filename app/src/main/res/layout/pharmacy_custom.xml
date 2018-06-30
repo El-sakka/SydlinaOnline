@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/button_rounded_rectangle"
-    android:layout_margin="16dp"
-    android:padding="16dp"
+    android:layout_margin="4dp"
     >
-
     <LinearLayout
-        android:id="@+id/list_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <TextView
             android:id="@+id/tv_retrice_pharmacy_name"
@@ -24,6 +19,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="casual"
             android:gravity="center"
+            android:textStyle="bold"
             android:text="PharmacyName"
             android:textSize="36sp" />
 
@@ -34,26 +30,38 @@
             android:gravity="center"
             android:text="Contact"
             android:textSize="24sp" />
+        <TextView
+            android:id="@+id/show_reservation"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:text="Show Reservation"
+            android:textSize="24sp" />
+
+
+        <TextView
+            android:text="@string/edit"
+            android:textSize="24sp"
+            android:id="@+id/imv_edit"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_edit" />
+
+        <TextView
+            android:text="Delete"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:id="@+id/imv_remove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            />
+
+
     </LinearLayout>
+</android.support.v7.widget.CardView>
 
-    <ImageView
-        android:id="@+id/imv_remove"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:src="@mipmap/ic_clrear" />
-
-    <ImageView
-        android:id="@+id/imv_edit"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@mipmap/ic_edit" />
-</RelativeLayout>
 
