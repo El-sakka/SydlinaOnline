@@ -1,45 +1,30 @@
 package www.sydlinaonline.com.sydlinaonline.View;
 
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.media.MediaExtractor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import www.sydlinaonline.com.sydlinaonline.FirebaseHelper.FirebaseHelper;
-import www.sydlinaonline.com.sydlinaonline.Model.Category;
 import www.sydlinaonline.com.sydlinaonline.Model.Medicine;
 import www.sydlinaonline.com.sydlinaonline.Model.PharmacyAndMedicine;
-import www.sydlinaonline.com.sydlinaonline.Model.PharmacyInfo;
 import www.sydlinaonline.com.sydlinaonline.R;
 
 /**
@@ -57,9 +42,6 @@ public class MedicineFragment extends Fragment {
     private static final String MEDICINE_KEY = "medicine_key";
     private static final String MEDICINE_QUANTITY = "medicine_quantity";
     private static final String CHOOSE_KEY = "choose";
-
-
-
 
 
     // hash map for medicine key , and medinine quantity
@@ -121,19 +103,18 @@ public class MedicineFragment extends Fragment {
 
         // identify intent to get data from it's prev intent
         Intent intent = getActivity().getIntent();
-        String classType = intent.getStringExtra("Class");
-        if(classType.equals("A")){
+        final String classType = intent.getStringExtra("Class");
+        if (classType.equals("A")) {
             pharmacyName = intent.getStringExtra(PHARMACY_NAME);
-        }else if(classType.equals("B")){
+        } else if (classType.equals("B")) {
             pharmacyName = intent.getStringExtra(CHOOSE_KEY);
         }
-       // final String pharmacyKey = intent.getStringExtra(PHARMACY_KEY);
-
+        // final String pharmacyKey = intent.getStringExtra(PHARMACY_KEY);
 
 
         mPharmacyName.setText(pharmacyName);
         pharmacySearch = pharmacyName;
-        
+
         // tag for debugging
         Log.d(TAG, "onActivityCreated: pharmacy Name: " + pharmacyName);
 /*
@@ -157,35 +138,41 @@ public class MedicineFragment extends Fragment {
                 Log.d(TAG, "onClick: pressed");
                 // check if medicine name is empty or not
                 if (!TextUtils.isEmpty(mMedicineName.getText().toString())) {
-                    // getting all text from Edit text (Views)
-                    String medicineName = mMedicineName.getText().toString();
-                    String medicinePrice = mMedicinePrice.getText().toString();
-                    String medicineCategory = mMedicineCategory.getText().toString();
-                    String medicineQuantity = mMedicineQuantity.getText().toString();
-                    String medicineDescription = mMedicineDiscription.getText().toString();
-                    String medicineImageUrl = mMedicineImage.getText().toString();
-
-                    // get medicine key when adding new medicine
-                    String medicineKey = mDatabaseReferenceMedicine.push().getKey();
-
-                    // object from medicine model
-                    Medicine medicineObj = new Medicine(medicineName, medicinePrice, medicineDescription,
-                            medicineImageUrl, medicineKey,0);
-                    // object from medicince and pharmacy model
-                    PharmacyAndMedicine pharmacyAndMedicine = new PharmacyAndMedicine(pharmacyName, medicineName,medicineQuantity);
-
-                    //set value in medinince node
-                    mDatabaseReferenceMedicine.child(medicineName).setValue(medicineObj);
-                    // set value in medince and phramacy node
-                    mDatabaseReferenceMedicinePharmacy.push().setValue(pharmacyAndMedicine);
-                    // set value in pharmacy node
-                    //mDatabaseReferencePharmacy.child("ListMedicine").push().setValue(map);
-                    // set value in category node
-                    mDatabaseReferenceCategory.child(medicineCategory).push().setValue(medicineName);
 
 
-                    Toast.makeText(getActivity(),"Done",Toast.LENGTH_SHORT).show();
-                    clearData();
+                    if(vaildate()) {
+                        // getting all text from Edit text (Views)
+                        String medicineName = mMedicineName.getText().toString();
+                        String medicinePrice = mMedicinePrice.getText().toString();
+                        String medicineCategory = mMedicineCategory.getText().toString();
+                        String medicineQuantity = mMedicineQuantity.getText().toString();
+                        String medicineDescription = mMedicineDiscription.getText().toString();
+                        String medicineImageUrl = mMedicineImage.getText().toString();
+
+                        // get medicine key when adding new medicine
+                        String medicineKey = mDatabaseReferenceMedicine.push().getKey();
+
+                        // object from medicine model
+                        Medicine medicineObj = new Medicine(medicineName, medicinePrice, medicineDescription,
+                                medicineImageUrl, medicineKey, 0);
+                        // object from medicince and pharmacy model
+                        PharmacyAndMedicine pharmacyAndMedicine = new PharmacyAndMedicine(pharmacyName, medicineName, medicineQuantity);
+
+                        //set value in medinince node
+                        mDatabaseReferenceMedicine.child(medicineName).setValue(medicineObj);
+                        // set value in medince and phramacy node
+                        mDatabaseReferenceMedicinePharmacy.push().setValue(pharmacyAndMedicine);
+                        // set value in pharmacy node
+                        //mDatabaseReferencePharmacy.child("ListMedicine").push().setValue(map);
+                        // set value in category node
+
+                        //check(medicineCategory,medicineName);
+                       mDatabaseReferenceCategory.child(medicineCategory).push().setValue(medicineName);
+
+
+                        Toast.makeText(getActivity(), "Done", Toast.LENGTH_SHORT).show();
+                    }
+
 
                 } else {
                     Toast.makeText(getActivity(), "Medicine Name is Empty", Toast.LENGTH_SHORT).show();
@@ -195,13 +182,61 @@ public class MedicineFragment extends Fragment {
         });
     }
 
-    private void clearData(){
+    private void clearData() {
         mMedicineName.setText("");
         mMedicineDiscription.setText("");
         mMedicineQuantity.setText("");
         mMedicinePrice.setText("");
         mMedicineImage.setText("");
-       // mMedicineCategory.setText("");
+        // mMedicineCategory.setText("");
+    }
+
+
+    private boolean vaildate() {
+        if (TextUtils.isEmpty(mMedicineCategory.getText())) {
+            mMedicineCategory.setError("Category is required!");
+            return false;
+        }
+        if (TextUtils.isEmpty(mMedicinePrice.getText())) {
+            mMedicinePrice.setError("Price is required!");
+            return false;
+        }
+        if (TextUtils.isEmpty(mMedicineQuantity.getText())) {
+            mMedicineQuantity.setError("Price is required!");
+            return false;
+        }
+        return true;
+
+    }
+
+    private void check(final String category, final String medicine){
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("Database").child("Category").child(category);
+        Log.d(TAG, "check: SSS "+category+" medi "+medicine);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String key = snapshot.getKey();
+                    String val = snapshot.getValue(String.class);
+                    Log.d(TAG, "onDataChange: key:"+key+" val : "+val);
+                    if(val.equals(medicine)){
+                        Log.d(TAG, "onDataChange: True");
+                        databaseReference.getRef().setValue(medicine);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void callingCategory(String medicineCategory,String medicineName){
     }
 
 

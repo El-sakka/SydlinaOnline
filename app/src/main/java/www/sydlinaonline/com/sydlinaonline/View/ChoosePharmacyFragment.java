@@ -108,6 +108,7 @@ public class ChoosePharmacyFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         deletePharmacy(model.getPharmacyKey());
+                        deletePharmacyAndMedicine(model.getPharmacyName());
                     }
                 });
             }
@@ -184,6 +185,27 @@ public class ChoosePharmacyFragment extends Fragment {
             }
         });
 
+    }
+
+
+    private  void deletePharmacyAndMedicine(String phramcyName){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Database").child("PharamcyAndMedicine");
+
+        Query query = reference.orderByChild("pharmacyKey").equalTo(phramcyName);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    snapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void redirectToMedicine(String phrmacyName){

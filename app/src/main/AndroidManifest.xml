@@ -14,7 +14,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/capsule"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -34,9 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".View.ChoosePharmacy" />
-        <activity android:name=".View.CreatePharmacy" />
         <activity android:name=".View.MedicineActivity" />
-        <activity android:name=".Map.SetLocationActivity" />
         <activity android:name=".View.ShowReservationActivity"></activity>
     </application>
 

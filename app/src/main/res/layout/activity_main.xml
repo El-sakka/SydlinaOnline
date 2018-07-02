@@ -15,18 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
-    <TextView
-        android:id="@+id/tv_create_pharmacy"
-        android:text="@string/create_pharmacy"
-        android:padding="8dp"
-        android:layout_marginTop="24dp"
-        android:textColor="@android:color/black"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_rectangle"
-        />
+
 
 
 
